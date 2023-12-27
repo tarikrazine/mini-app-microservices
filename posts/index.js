@@ -1,22 +1,24 @@
+import { randomBytes } from "crypto";
+
 import express from "express";
 import bodyParser from "body-parser";
+import cors from "cors";
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cors({
+  origin: "http://localhost:3000",
+}));
 
-const posts = [
-  { id: 1, title: "First post", content: "This is the first post" },
-  { id: 2, title: "Second post", content: "This is the second post" },
-  { id: 3, title: "Third post", content: "This is the third post" },
-];
+const posts = {};
 
 app.get("/healthcheck", (req, res) => {
   res.send("Hello World!");
 });
 
 app.get("/posts", (req, res) => {
-  res.json(posts);
+  res.status(200).json(posts);
 });
 
 app.post("/posts", (req, res) => {
@@ -26,17 +28,17 @@ app.post("/posts", (req, res) => {
     res.status(400).send("Missing title or content");
   }
 
-  const newPost = {
-    id: posts.length + 1,
-    title: req.body.title,
-    content: req.body.content,
+  const id = randomBytes(4).toString("hex");
+
+  posts[id] = {
+    id: id,
+    title: title,
+    content: content,
   };
 
-  posts.push(newPost);
-
-  res.json(posts);
+  res.status(201).json(posts[id])
 });
 
 app.listen(4000, () => {
-  console.log("Example app listening on port 4000!");
+  console.log("Listening on port 4000!");
 });
