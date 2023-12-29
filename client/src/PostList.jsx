@@ -10,7 +10,7 @@ function PostList() {
 
   useEffect(() => {
     async function fetchPosts() {
-      const response = await axios.get("http://localhost:4000/posts");
+      const response = await axios.get("http://localhost:4002/posts");
 
       if (response.status !== 200) {
         throw new Error("fetching posts failed");
@@ -31,15 +31,14 @@ function PostList() {
         key={post.id}
       >
         <div className="card-header">
-
-        <h2 className="card-title">{post.title}</h2>
+          <h2 className="card-title">{post.title}</h2>
         </div>
         <div className="card-body">
           <p className="card-text">{post.content}</p>
         </div>
         <div className="card-footer">
-            <CommentList id={post.id} />
-            <CreateComments id={post.id} />
+          <CommentList comments={post.comments} />
+          <CreateComments id={post.id} />
         </div>
       </div>
     );
@@ -47,8 +46,11 @@ function PostList() {
 
   return (
     <div className="flex-center">
-      <div className="d-flex flex-row flex-wrap justify-content-between">{renderedPosts}</div></div>
-    )
+      <div className="d-flex flex-row flex-wrap justify-content-between">
+        {renderedPosts}
+      </div>
+    </div>
+  );
 }
 
 export default PostList;

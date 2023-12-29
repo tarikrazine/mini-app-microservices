@@ -1,18 +1,18 @@
 import express from "express";
-import bodyParser from "body-parser";
 import axios from "axios";
+import bodyParser from "body-parser";
 
 const app = express();
 app.use(bodyParser.json());
 
-app.post("/events", (req, res) => {
+app.post("/events", async (req, res) => {
   const event = req.body;
 
-  console.log("Received Event", req.body.type);
-
-  axios.post("http://localhost:4000/events", event);
-  axios.post("http://localhost:4001/events", event);
-  axios.post("http://localhost:4002/events", event);
+  // axios.post("http://localhost:4000/events", event);
+  // axios.post("http://localhost:4001/events", event);
+  axios.post("http://localhost:4002/events", event).catch((err) => {
+    console.log(err.message);
+  });
 
   res.status(200).send({ status: "OK" });
 });
