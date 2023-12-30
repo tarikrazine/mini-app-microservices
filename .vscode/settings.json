@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["healthcheck"]
+  "cSpell.words": ["healthcheck"],
+  "cloudcode.duetAI.inlineSuggestions.enableAuto": false
 }

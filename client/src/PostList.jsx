@@ -12,9 +12,9 @@ function PostList() {
     async function fetchPosts() {
       const response = await axios.get("http://localhost:4002/posts");
 
-      if (response.status !== 200) {
-        throw new Error("fetching posts failed");
-      }
+      // if (response.status !== 200) {
+      //   throw new Error("fetching posts failed");
+      // }
 
       setPosts(response.data);
     }
